@@ -7,7 +7,8 @@ types.setTypeParser(20, (v) => parseInt(v, 10)); // int8 (count) -> number
 
 const pool = new Pool({
   connectionString: config.databaseUrl,
-  ssl: config.dbSsl ? { rejectUnauthorized: false } : false,
+   ssl: config.dbSsl ? { rejectUnauthorized: false } : false,
+  options: `-c timezone=${config.tz}`,
   max: 10,
 });
 pool.on('error', (e) => console.error('Error inesperado del pool de PostgreSQL:', e.message));
