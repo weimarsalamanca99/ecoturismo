@@ -226,7 +226,7 @@ describe('Pagos y cancelación con reembolso (HU-12, HU-18)', () => {
     const c = await h.call('POST', `/reservas/${reservaId}/cancelar`, { token: turista.token });
     assert.equal(c.body.reembolso, true);
     assert.equal(c.body.monto_reembolsado, 300000);
-    const p = await h.query('SELECT estado FROM pago WHERE id_reserva = $1', [reservaId]);
+    const p = await h.query('SELECT estado FROM pago WHERE id_reserva = $1 ORDER BY id_pago DESC LIMIT 1', [reservaId]);
     assert.equal(p.rows[0].estado, 'reembolsado');
   });
   it('cancelar con menos de 48 horas no reembolsa', async () => {
