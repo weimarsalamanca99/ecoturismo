@@ -26,6 +26,7 @@ app.use(helmet({
     },
   },
   crossOriginEmbedderPolicy: false,
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
 }));
 if (config.corsOrigin) app.use(cors({ origin: config.corsOrigin.split(','), credentials: false }));
 app.use(express.json({ limit: '100kb' }));
