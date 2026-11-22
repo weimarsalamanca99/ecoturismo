@@ -1,0 +1,5 @@
+# HTTPS automático con Let's Encrypt. Define DOMAIN en .env (por ejemplo ecoturismo.midominio.com).
+{$DOMAIN:localhost} {
+	encode gzip
+	reverse_proxy app:3000
+}

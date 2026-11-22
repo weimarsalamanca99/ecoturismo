@@ -1,0 +1,28 @@
+# Blueprint de Render: crea la base de datos PostgreSQL y el servicio web (Docker) con HTTPS y URL pública.
+# Verifica en https://render.com/pricing las condiciones vigentes del plan gratuito.
+databases:
+  - name: eco-db
+    databaseName: ecoturismo
+    user: eco
+    plan: free
+
+services:
+  - type: web
+    name: eco-turismo
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: eco-db
+          property: connectionString
+      - key: DB_SSL
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      # Usuarios y datos de demostración. Cambia a "false" (o cambia las claves) cuando el sitio sea de uso real.
+      - key: SEED_DEMO
+        value: "true"
